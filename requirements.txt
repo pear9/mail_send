@@ -10,4 +10,4 @@ Jinja2
 MarkupSafe
 packaging
 werkzeug
-zipp2
+zipp
