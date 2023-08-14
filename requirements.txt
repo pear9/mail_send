@@ -8,5 +8,6 @@ importlib-metadata
 itsdangerous
 Jinja2
 MarkupSafe
-packagingwerkzeug
+packaging
+werkzeug
 zipp2
