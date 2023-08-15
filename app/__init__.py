@@ -3,7 +3,7 @@ import os
 from flask import Flask ,render_template,request, redirect,jsonify
 from flask_mail import Mail, Message
 from flask_allowedhosts import limit_hosts
-from flask_cors import CORS
+
 
 app = Flask(__name__)
 
