@@ -1,10 +1,12 @@
 # importing libraries
 import os
-from flask import Flask ,render_template,request, redirect
+from flask import Flask ,render_template,request, redirect,jsonify
 from flask_mail import Mail, Message
-from flask_allowedhosts import check_host
+from flask_allowedhosts import limit_hosts
+from flask_cors import CORS
 
 app = Flask(__name__)
+
 mail = Mail(app) # instantiate the mail class
 
 #configuration of mail
@@ -15,7 +17,9 @@ app.config['MAIL_PASSWORD'] = os.getenv('MAIL_PASSWORD')
 app.config['MAIL_USE_TLS'] = os.getenv('MAIL_USE_TLS', False) in ['True', 'true', '1']
 app.config['MAIL_USE_SSL'] = os.getenv('MAIL_USE_SSL', False) in ['True', 'true', '1']
 
-ALLOWED_HOSTS = ['127.0.0.1:5000', 'localhost:5000']
+
+
+ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
 
 
 
@@ -26,12 +30,12 @@ mail = Mail(app)
 
 # message object mapped to a particular URL ‘/’
 @app.route("/")
-@check_host(allowed_hosts=ALLOWED_HOSTS)
+@limit_hosts(allowed_hosts=ALLOWED_HOSTS)
 def index():
     return render_template('index.html')
 
 @app.route('/send_email',methods=['GET','POST'])
-@check_host(allowed_hosts=ALLOWED_HOSTS)
+@limit_hosts(allowed_hosts=ALLOWED_HOSTS)
 def send_email():
     if request.method=='POST':
         recipient_email =  os.getenv('RECIPIENT_USERNAME')
@@ -48,7 +52,7 @@ def send_email():
 
         try:
             mail.send(message)
-            return 'Email sent successfully!'
+            return jsonify("greeting"), 200
         except Exception as e:
             return str(e)
     else:

@@ -3,6 +3,7 @@ click==8.1.6
 colorama==0.4.6
 Flask
 Flask-Mail
+flask-allowedhosts
 gunicorn
 importlib-metadata
 itsdangerous
