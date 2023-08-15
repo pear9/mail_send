@@ -2,7 +2,6 @@
 import os
 from flask import Flask ,render_template,request, redirect
 from flask_mail import Mail, Message
-from app import app, mail
 
 app = Flask(__name__)
 mail = Mail(app) # instantiate the mail class
