@@ -2,6 +2,7 @@
 import os
 from flask import Flask ,render_template,request, redirect
 from flask_mail import Mail, Message
+from flask_allowedhosts import check_host
 
 app = Flask(__name__)
 mail = Mail(app) # instantiate the mail class
@@ -14,7 +15,7 @@ app.config['MAIL_PASSWORD'] = os.getenv('MAIL_PASSWORD')
 app.config['MAIL_USE_TLS'] = os.getenv('MAIL_USE_TLS', False) in ['True', 'true', '1']
 app.config['MAIL_USE_SSL'] = os.getenv('MAIL_USE_SSL', False) in ['True', 'true', '1']
 
-
+ALLOWED_HOSTS = ['127.0.0.1:5000', 'localhost:5000']
 
 
 
@@ -25,10 +26,12 @@ mail = Mail(app)
 
 # message object mapped to a particular URL ‘/’
 @app.route("/")
+@check_host(allowed_hosts=ALLOWED_HOSTS)
 def index():
     return render_template('index.html')
 
 @app.route('/send_email',methods=['GET','POST'])
+@check_host(allowed_hosts=ALLOWED_HOSTS)
 def send_email():
     if request.method=='POST':
         recipient_email =  os.getenv('RECIPIENT_USERNAME')
@@ -37,7 +40,7 @@ def send_email():
         name = data.get('name')
         email = data.get('email')
         cust_message=data.get('cust_message')
-        subject = 'Response from ContactUs Page'
+        subject = 'Response from Contact Us Page' 
         sender_email = os.getenv('MAIL_USERNAME')
 
         message = Message(subject, sender=sender_email, recipients=[recipient_email])
