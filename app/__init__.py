@@ -37,7 +37,7 @@ def send_email():
         name = data.get('name')
         email = data.get('email')
         subject = 'Your Subject Here'
-        sender_email = app.config('MAIL_USERNAME')
+        sender_email = os.getenv('MAIL_USERNAME')
 
         message = Message(subject, sender=sender_email, recipients=[recipient_email])
         message.html = render_template('email_template.html', cust_name=name,cust_email=email,message=message)
