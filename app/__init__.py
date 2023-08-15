@@ -31,16 +31,17 @@ def index():
 @app.route('/send_email',methods=['GET','POST'])
 def send_email():
     if request.method=='POST':
-        recipient_email = 'tesewa9275@v1zw.com'
-        recipient_name = 'Recipient Name'
+        recipient_email =  os.getenv('RECIPIENT_USERNAME')
+        
         data = request.form
         name = data.get('name')
         email = data.get('email')
-        subject = 'Your Subject Here'
+        cust_message=data.get('cust_message')
+        subject = 'Response from ContactUs Page'
         sender_email = os.getenv('MAIL_USERNAME')
 
         message = Message(subject, sender=sender_email, recipients=[recipient_email])
-        message.html = render_template('email_template.html', cust_name=name,cust_email=email,message=message)
+        message.html = render_template('email_template.html', cust_name=name,cust_email=email,cust_message=cust_message)
 
         try:
             mail.send(message)
@@ -50,25 +51,7 @@ def send_email():
     else:
         return render_template('index.html')
     
-@app.route("/send",methods=['GET','POST'])   
-def send():
-    if request.method == 'POST':
-        data = request.form
-        name = data.get('name')
-        email = data.get('email')
-        message=data.get('message')
-        # Do something with the received data
-        print(f"Received data: Name={name}, Email={email},Message={message}")
-        # msg = Message(
-        #                 'Response Got',
-        #                 sender ='rosepear9@gmail.com',
-        #                 recipients = ['tesewa9275@v1zw.com']
-        #             )
-        # msg.body = 'Hello Flask message sent from Flask-Mail'
-        # mail.send(msg)
-        return 'Sent'
-    else:
-        return render_template('index.html')
+
 
 if __name__ == '__main__':
     app.run(debug = True)
