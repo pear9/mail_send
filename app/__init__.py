@@ -29,7 +29,7 @@ mail = Mail(app)
 def index():
     return render_template('index.html')
 
-@app.route('/send_email',method=['GET','POST'])
+@app.route('/send_email',methods=['GET','POST'])
 def send_email():
     if request.method=='POST':
         recipient_email = 'tesewa9275@v1zw.com'
