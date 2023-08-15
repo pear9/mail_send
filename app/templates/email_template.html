@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Your Email Title</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        img.logo {
+            max-width: 150px;
+            margin-bottom: 20px;
+        }
+
+        .name-email {
+            margin-bottom: 10px;
+        }
+
+        .message {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <img class="logo" src="https://infrasoft.com.np/wp-content/uploads/2022/11/cropped-logo.png" alt="Company Logo">
+        <h1>Hello</h1>
+        <p>We got a response.</p>
+        <div class="name-email">
+            <p><strong>Name:</strong> {{ cust_name }}</p>
+            <p><strong>Email:</strong> {{ cust_email }}</p>
+        </div>
+        <div class="message">
+            <p><strong>Message:</strong></p>
+            <p>{{ message }}</p>
+        </div>
+
+    </div>
+</body>
+
+</html>
