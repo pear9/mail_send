@@ -3,10 +3,11 @@ import os
 from flask import Flask ,render_template,request, redirect,jsonify
 from flask_mail import Mail, Message
 from flask_allowedhosts import limit_hosts
+from flask_cors import CORS
 
 
 app = Flask(__name__)
-
+CORS(app)
 mail = Mail(app) # instantiate the mail class
 
 #configuration of mail
@@ -53,6 +54,7 @@ def send_email():
 
         try:
             mail.send(message)
+
             return jsonify("greeting"), 200
         except Exception as e:
             return str(e)
