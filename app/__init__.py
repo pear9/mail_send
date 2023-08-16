@@ -44,11 +44,12 @@ def send_email():
         name = data.get('name')
         email = data.get('email')
         cust_message=data.get('cust_message')
-        subject = 'Response from Contact Us Page' 
+        phone=data.get('phone')
+        subject = data.get('subject')
         sender_email = os.getenv('MAIL_USERNAME')
 
         message = Message(subject, sender=sender_email, recipients=[recipient_email])
-        message.html = render_template('email_template.html', cust_name=name,cust_email=email,cust_message=cust_message)
+        message.html = render_template('email_template.html', cust_name=name,cust_email=email,cust_phone=phone,cust_message=cust_message)
 
         try:
             mail.send(message)
